@@ -4,12 +4,12 @@ const productsControllers = require('../controllers/productsControllers');
 const router = express.Router();
 
 router.get(
-  '/products',
+  '/',
   productsControllers.getAll,
 );
 
 router.get(
-  '/products/:id',
+  '/:id',
   productsControllers.getById,
 );
 
