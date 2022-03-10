@@ -1,4 +1,5 @@
 const connection = require('./connection');
+const productModels = require('./productsModels');
 
 const getAll = async () => {
   const query = (
@@ -38,7 +39,41 @@ const getById = async (id) => {
   return result;
 };
 
+const handleQuantity = async (id, quantity) => {
+  const [product] = await productModels.getById(id);
+
+  const quantityUpdate = product.quantity - quantity;
+
+  const query = `UPDATE StoreManager.products 
+    SET 
+      quantity = (?) 
+    WHERE id = (?);`;
+
+  await connection.execute(query, [quantityUpdate, id]);
+};
+
+const create = async (sales) => {
+  const querySaleId = 'INSERT INTO StoreManager.sales () VALUES ();';
+  const [saleId] = await connection.execute(querySaleId);
+  const { insertId } = saleId;
+  // obrigado promise.all
+  await Promise.all(sales.map(async ({ productId, quantity }) => {
+    const query = `INSERT INTO StoreManager.sales_products 
+    (sale_id, product_id, quantity) VALUES (?,?,?);`;
+    
+    const [salesProducts] = await connection.execute(query, [insertId, productId, quantity]);
+
+    return salesProducts;
+  }));
+  const [info] = sales;
+
+  handleQuantity(info.productId, info.quantity);
+
+  return { id: insertId, itemsSold: sales };
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };

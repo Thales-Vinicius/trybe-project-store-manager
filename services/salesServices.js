@@ -23,7 +23,16 @@ const getById = async (id) => {
   return serialize;
 };
 
+const create = async (sales) => {
+  const sale = await salesModels.create(sales);
+
+  if (!sale) return null;
+
+  return sale;
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };
