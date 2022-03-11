@@ -121,7 +121,7 @@ describe('Testando sales services', () => {
     });
 
     it('retorna null quando vai criar', async () => {
-      const [serviceResponse] = await salesServices.create(mockTeste);
+      const serviceResponse = await salesServices.create(mockTeste);
 
       expect(serviceResponse).to.be.a('null');
     });
