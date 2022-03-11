@@ -23,8 +23,21 @@ const create = async (req, res, _next) => {
   return res.status(201).json(sale);
 };
 
+const update = async (req, res, _next) => {
+  const { id } = req.params;
+
+  const sales = req.body;
+
+  const saleUpdated = await salesServices.update(sales, Number(id));
+
+  if (!saleUpdated) return res.status(404).json9({ message: 'Sale not found' });
+
+  return res.status(200).json(saleUpdated);
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  update,
 };
