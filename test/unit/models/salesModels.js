@@ -86,7 +86,7 @@ describe('Testando sales models requisito 2', () => {
     });
 
     it('Atualizado com sucesso', async () => {
-      const [modelResponse] = await salesModels.update(mockTeste);
+      const modelResponse = await salesModels.update(mockTeste);
 
       expect(modelResponse).to.be.an('object');
     });

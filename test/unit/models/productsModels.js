@@ -4,7 +4,7 @@ const { expect } = require('chai');
 const connection = require('../../../models/connection')
 const productModels = require('../../../models/productsModels');
 
-describe('Testando product models requisito requisito 2', () => {
+describe('Testando product models', () => {
   const productsMock = [[
     {
       "id": 1,
