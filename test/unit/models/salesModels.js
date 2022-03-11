@@ -43,9 +43,52 @@ describe('Testando sales models requisito 2', () => {
     });
 
     it('retorno da busca por id', async () => {
-      const modelResponse = await salesModels.getById(1);
+      const [modelResponse] = await salesModels.getById(1);
 
-      expect(modelResponse).to.be.an('array');
+      expect(modelResponse).to.be.an('object');
+    });
+  });
+
+  describe('Cadastrando uma venda', () => {
+    const mockTeste = [[{
+      "productId": 1,
+      "quantity": 3,
+    }]]
+
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(mockTeste);
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('Cadastrado com sucesso', async () => {
+      const modelResponse = await salesModels.create(mockTeste);
+
+      expect(modelResponse).to.be.an('object');
+    });
+  });
+
+  describe('Dando update em um venda', () => {
+    const mockTeste = [[{
+      "id": 1,
+      "productId": 1,
+      "quantity": 2,
+    }]]
+
+    before(() => {
+      sinon.stub(connection, 'execute').resolves(mockTeste);
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('Atualizado com sucesso', async () => {
+      const [modelResponse] = await salesModels.update(mockTeste);
+
+      expect(modelResponse).to.be.an('object');
     });
   });
 });
