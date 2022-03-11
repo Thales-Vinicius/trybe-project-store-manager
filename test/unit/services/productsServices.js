@@ -63,32 +63,32 @@ describe('Testando product services', () => {
     });
   });
 
-  describe('cadastrando um novo produto', () => {
-    const mockTeste = [
-      {
-        "id": 1,
-        "name": "produto A",
-        "quantity": 10,
-      }
-    ];
+  // describe('cadastrando um novo produto', () => {
+  //   const mockTeste = [
+  //     {
+  //       "id": 1,
+  //       "name": "produto A",
+  //       "quantity": 10,
+  //     }
+  //   ];
 
-    before(() => {
-      sinon.stub(productModels, 'create').resolves(mockTeste);
-    });
+  //   before(() => {
+  //     sinon.stub(productModels, 'create').resolves(mockTeste);
+  //   });
 
-    after(() => {
-      productModels.create.restore();
-    });
+  //   after(() => {
+  //     productModels.create.restore();
+  //   });
 
-    it('retorna o produto cadastrado', async () => {
-      const [serviceResponse] = await productServices.create(mockTeste);
+  //   it('retorna o produto cadastrado', async () => {
+  //     const [serviceResponse] = await productServices.create(mockTeste);
 
-      expect(serviceResponse).to.be.an('object');
-      expect(serviceResponse).to.have.a.property('id');
-      expect(serviceResponse).to.have.a.property('name');
-      expect(serviceResponse).to.have.a.property('quantity');
-    });
-  });
+  //     expect(serviceResponse).to.be.an('object');
+  //     expect(serviceResponse).to.have.a.property('id');
+  //     expect(serviceResponse).to.have.a.property('name');
+  //     expect(serviceResponse).to.have.a.property('quantity');
+  //   });
+  // });
 
   describe('Tentando cadastrar um produto existente', () => {
     const mockTeste = [
